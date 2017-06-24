@@ -1,0 +1,109 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+
+def getBuildTime() {
+    return new Date().format("yyyy-MM-dd HH:mm:ss.sss")
+}
+
+def osName() {
+    return System.getProperty("os.name") + "@" + System.getProperty("os.version")
+}
+
+android {
+    signingConfigs {
+        angcyo {
+            keyAlias 'angcyo'
+            keyPassword 'angcyo'
+            storeFile file('../RLibrary/angcyo.jks')
+            storePassword 'angcyo'
+        }
+    }
+    compileSdkVersion Integer.parseInt(rootProject.C_SDK)
+    buildToolsVersion rootProject.B_TOOLS
+    defaultConfig {
+        applicationId "com.angcyo.runoob"
+        minSdkVersion Integer.parseInt(rootProject.M_SDK)
+        targetSdkVersion Integer.parseInt(rootProject.T_SDK)
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+
+        resValue "string", "build_time", getBuildTime()
+        resValue "string", "os_name", osName()
+        resValue "bool", "SHOW_DEBUG", "true"
+    }
+//    sourceSets {
+//        main {
+//            res.srcDirs = [
+//                    'src/main/res/'
+//            ]
+//        }
+//    }
+    productFlavors {
+        //develop
+        _dev {
+            minSdkVersion 21
+            buildConfigField "boolean", "SHOW_DEBUG", "true"
+        }
+        //preview
+        pre {
+            minSdkVersion Integer.parseInt(rootProject.M_SDK)
+            buildConfigField "boolean", "SHOW_DEBUG", "true"
+        }
+        //apk
+        apk {
+            minSdkVersion Integer.parseInt(rootProject.M_SDK)
+            buildConfigField "boolean", "SHOW_DEBUG", "false"
+        }
+    }
+    buildTypes {
+        release {
+            //applicationIdSuffix ".release"
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.angcyo
+        }
+        debug {
+            //applicationIdSuffix ".debug"
+            signingConfig signingConfigs.angcyo
+        }
+    }
+    getApplicationVariants().all { variant ->
+        variant.outputs.each { output ->
+            def appName = "Runoob-${variant.buildType.name}-${variant.versionName}"
+            def time = ""
+            if (variant.buildType.name.equalsIgnoreCase("release")) {
+                time = "_${new Date().format("yyyy-MM-dd_HH-mm")}"
+            }
+            output.outputFile = new File(output.outputFile.parent, "${appName}${time}.apk")
+        }
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+    dexOptions {
+        incremental true
+        preDexLibraries false
+        jumboMode true
+        javaMaxHeapSize "4g"
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    compile project(':RLibrary:uiview')
+}
+repositories {
+    mavenCentral()
+}
