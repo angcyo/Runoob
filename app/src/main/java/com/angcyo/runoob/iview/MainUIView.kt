@@ -16,11 +16,16 @@ import com.angcyo.uiview.view.IView
  */
 class MainUIView : UISlidingTabView() {
     override fun getPageTitle(position: Int): String {
-        return "标题$position"
+        return when (position) {
+            0 -> "首页"
+            else -> {
+                "$position"
+            }
+        }
     }
 
     override fun getPageCount(): Int {
-        return 3
+        return 1
     }
 
     override fun getPageIView(position: Int): IView {

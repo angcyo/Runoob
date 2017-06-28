@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#2C3031"
+        android:gravity="center_horizontal"
+        android:paddingTop="80dp"
+        android:textColor="#707475"
+        android:textSize="@dimen/default_text_size16"/>
+
+    <com.angcyo.runoob.x5.X5RefreshLayout
+        android:id="@+id/refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.angcyo.runoob.x5.X5WebView
+            android:id="@+id/web_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </com.angcyo.runoob.x5.X5RefreshLayout>
+
+    <!--<com.angcyo.uiview.widget.EmptyView-->
+    <!--android:id="@+id/empty_view"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:padding="@dimen/base_xxhdpi"/>-->
+
+    <com.angcyo.uiview.widget.SimpleProgressBar
+        android:id="@+id/progress_bar_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>
