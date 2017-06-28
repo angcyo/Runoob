@@ -38,7 +38,7 @@ class LauncherUIView : BaseContentUIView() {
                 ResUtil.createDrawable(Color.WHITE, SkinHelper.getTranColor(Color.RED, 0x40), (2 * density()).toInt(), 3 * density())))
 
         click(R.id.go) {
-
+            replaceIView(MainUIView().setEnableClipMode(ClipMode.CLIP_START))
         }
     }
 
