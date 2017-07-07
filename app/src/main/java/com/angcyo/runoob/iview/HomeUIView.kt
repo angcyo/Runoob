@@ -1,6 +1,5 @@
 package com.angcyo.runoob.iview
 
-import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.widget.RelativeLayout
 import com.angcyo.library.utils.L
@@ -9,7 +8,7 @@ import com.angcyo.runoob.base.BaseRecyclerUIView
 import com.angcyo.runoob.bean.HomeBean
 import com.angcyo.runoob.bean.HomeSubBean
 import com.angcyo.runoob.x5.X5WebUIView
-import com.angcyo.uiview.model.TitleBarPattern
+import com.angcyo.uiview.net.RException
 import com.angcyo.uiview.net.RFunc
 import com.angcyo.uiview.net.RSubscriber
 import com.angcyo.uiview.net.Rx
@@ -25,7 +24,7 @@ import org.jsoup.Jsoup
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
  * 项目名称：
- * 类的描述：
+ * 类的描述：首页 http://www.runoob.com/
  * 创建人员：Robi
  * 创建时间：2017/06/28 12:00
  * 修改人员：Robi
@@ -35,9 +34,10 @@ import org.jsoup.Jsoup
  */
 class HomeUIView : BaseRecyclerUIView<HomeUIView.HomeGroup>() {
 
-    override fun getTitleBar(): TitleBarPattern? {
-        return null
+    companion object {
+        val groups = arrayListOf<HomeGroup>()
     }
+
 
     override fun createAdapter(): RExBaseAdapter<String, HomeGroup, String>? {
         return object : RGroupAdapter<String, HomeGroup, String>(mActivity) {
@@ -78,10 +78,17 @@ class HomeUIView : BaseRecyclerUIView<HomeUIView.HomeGroup>() {
         }
     }
 
-    override fun onViewShowFirst(bundle: Bundle?) {
-        super.onViewShowFirst(bundle)
-        Rx.base(object : RFunc<List<HomeBean>>() {
-            override fun call(t: String?): List<HomeBean> {
+    override fun onUILoadData(page: Int) {
+        super.onUILoadData(page)
+        if (!groups.isEmpty()) {
+            showContentLayout()
+            mExBaseAdapter.resetAllData(groups)
+            //内存缓存
+            return
+        }
+
+        add(Rx.base(object : RFunc<List<HomeBean>>() {
+            override fun onFuncCall(): List<HomeBean> {
                 val document = Jsoup.connect("http://www.runoob.com/").get()
                 val elements = document.select("div.codelist-desktop")
                 val beans = arrayListOf<HomeBean>()
@@ -112,7 +119,6 @@ class HomeUIView : BaseRecyclerUIView<HomeUIView.HomeGroup>() {
                 } else {
                     showContentLayout()
 
-                    val groups = arrayListOf<HomeGroup>()
                     bean.map {
                         val group = HomeGroup()
                         group.category = it.category
@@ -125,8 +131,16 @@ class HomeUIView : BaseRecyclerUIView<HomeUIView.HomeGroup>() {
                     mExBaseAdapter.resetAllData(groups)
                 }
             }
-        })
+
+            override fun onEnd(isError: Boolean, isNoNetwork: Boolean, e: RException?) {
+                super.onEnd(isError, isNoNetwork, e)
+                if (isError) {
+                    showNonetLayout { onBaseLoadData() }
+                }
+            }
+        }))
     }
+
 
     inner class HomeGroup : RGroupData<HomeSubBean>() {
         var category: String? = null
