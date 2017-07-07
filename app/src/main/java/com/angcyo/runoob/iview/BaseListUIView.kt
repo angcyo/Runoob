@@ -75,6 +75,7 @@ open class BaseListUIView(var baseUrl: String) : BaseRecyclerUIView<HomeSubBean>
 
             override fun onEnd(isError: Boolean, isNoNetwork: Boolean, e: RException?) {
                 super.onEnd(isError, isNoNetwork, e)
+                hideLoadView()
                 if (isError) {
                     if (mExBaseAdapter == null) {
                         showNonetLayout { onBaseLoadData() }
