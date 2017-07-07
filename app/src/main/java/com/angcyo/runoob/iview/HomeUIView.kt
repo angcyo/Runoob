@@ -135,7 +135,11 @@ class HomeUIView : BaseRecyclerUIView<HomeUIView.HomeGroup>() {
             override fun onEnd(isError: Boolean, isNoNetwork: Boolean, e: RException?) {
                 super.onEnd(isError, isNoNetwork, e)
                 if (isError) {
-                    showNonetLayout { onBaseLoadData() }
+                    if (mExBaseAdapter == null) {
+                        showNonetLayout { onBaseLoadData() }
+                    } else {
+                        mExBaseAdapter.setNoMore(true)
+                    }
                 }
             }
         }))
