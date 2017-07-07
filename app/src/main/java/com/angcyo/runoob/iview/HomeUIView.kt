@@ -2,7 +2,6 @@ package com.angcyo.runoob.iview
 
 import android.support.v7.widget.GridLayoutManager
 import android.widget.RelativeLayout
-import com.angcyo.library.utils.L
 import com.angcyo.runoob.R
 import com.angcyo.runoob.base.BaseRecyclerUIView
 import com.angcyo.runoob.bean.HomeBean
@@ -44,7 +43,6 @@ class HomeUIView : BaseRecyclerUIView<HomeUIView.HomeGroup>() {
             override fun getItemLayoutId(viewType: Int): Int {
                 return when (viewType) {
                     RGroupAdapter.TYPE_GROUP_HEAD -> R.layout.item_single_text
-
                     else -> R.layout.item_category_layout
                 }
             }
@@ -128,7 +126,7 @@ class HomeUIView : BaseRecyclerUIView<HomeUIView.HomeGroup>() {
                         group.resetDatas(it.subBean)
                         groups.add(group)
 
-                        L.e("call: onSucceed -> $it \n\n")
+                        //L.e("call: onSucceed -> $it \n\n")
                     }
 
                     mExBaseAdapter.resetAllData(groups)

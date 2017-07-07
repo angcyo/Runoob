@@ -74,7 +74,7 @@ android {
             def appName = "Runoob-${variant.buildType.name}-${variant.versionName}"
             def time = ""
             if (variant.buildType.name.equalsIgnoreCase("release")) {
-                time = "_${new Date().format("yyyy-MM-dd_HH-mm")}"
+                time = "_${new Date().format("HH-mm_yyyy-MM-dd")}"
             }
             output.outputFile = new File(output.outputFile.parent, "${appName}${time}.apk")
         }
