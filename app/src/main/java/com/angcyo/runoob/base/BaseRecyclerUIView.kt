@@ -45,7 +45,7 @@ abstract class BaseRecyclerUIView<T> : UIRecyclerUIView<String, T, String>() {
 
     /**重载此方法, 加载网络数据*/
     open fun onUILoadData(page: Int) {
-
+        showLoadView()
     }
 
     /**数据获取之后调用此方法*/
@@ -79,6 +79,7 @@ abstract class BaseRecyclerUIView<T> : UIRecyclerUIView<String, T, String>() {
     }
 
     fun resetLoadUI() {
+        hideLoadView()
         if (mRefreshLayout != null) {
             mRefreshLayout.setRefreshEnd()
         }

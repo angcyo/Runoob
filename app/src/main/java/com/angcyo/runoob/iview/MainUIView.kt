@@ -1,6 +1,9 @@
 package com.angcyo.runoob.iview
 
+import com.angcyo.runoob.R
+import com.angcyo.runoob.x5.X5WebUIView
 import com.angcyo.uiview.base.UISlidingTabView
+import com.angcyo.uiview.model.TitleBarPattern
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -14,6 +17,13 @@ import com.angcyo.uiview.base.UISlidingTabView
  * Version: 1.0.0
  */
 class MainUIView : UISlidingTabView() {
+
+    override fun getTitleBar(): TitleBarPattern {
+        return super.getTitleBar().addRightItem(TitleBarPattern.TitleBarItem("Jquery") {
+            mParentILayout.startIView(X5WebUIView("http://jquery.cuishifeng.cn/"))
+        }.apply { rightMargin = getDimensionPixelOffset(R.dimen.base_xhdpi) })
+    }
+
     override fun getPageTitle(position: Int) =
             when (position) {
                 0 -> "首页"

@@ -81,9 +81,10 @@ class HomeUIView : BaseRecyclerUIView<HomeUIView.HomeGroup>() {
     override fun onUILoadData(page: Int) {
         super.onUILoadData(page)
         if (!groups.isEmpty()) {
+            //内存缓存
             showContentLayout()
             mExBaseAdapter.resetAllData(groups)
-            //内存缓存
+            hideLoadView()
             return
         }
 
@@ -114,6 +115,8 @@ class HomeUIView : BaseRecyclerUIView<HomeUIView.HomeGroup>() {
         }, object : RSubscriber<List<HomeBean>>() {
             override fun onSucceed(bean: List<HomeBean>) {
                 super.onSucceed(bean)
+                hideLoadView()
+
                 if (bean.isEmpty()) {
                     showEmptyLayout()
                 } else {
