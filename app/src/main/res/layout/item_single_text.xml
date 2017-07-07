@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.angcyo.uiview.viewgroup.RLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/base_chat_bg_color"
+    android:orientation="vertical">
+
+    <com.angcyo.uiview.widget.RTextView
+        android:id="@+id/text_view"
+        style="@style/BaseMainTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/base_ldpi"
+        android:drawableStart="@mipmap/ico_list"
+        android:padding="@dimen/base_ldpi"
+        android:textSize="@dimen/default_text_size16"
+        tools:text="测试文本"/>
+
+</com.angcyo.uiview.viewgroup.RLinearLayout>

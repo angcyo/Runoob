@@ -14,7 +14,11 @@ package com.angcyo.runoob.bean
 data class HomeBean(
         var category: String? = null,
         var subBean: ArrayList<HomeSubBean>? = null
-)
+) {
+    override fun toString(): String {
+        return "category:$category ${subBean.toString()}"
+    }
+}
 
 data class HomeSubBean(var title: String? = null,
                        var url: String? = null,

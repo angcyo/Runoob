@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import com.angcyo.runoob.iview.LauncherUIView;
 import com.angcyo.runoob.iview.MainUIView;
+import com.angcyo.uiview.RCrashHandler;
 import com.angcyo.uiview.base.UIBaseView;
 import com.angcyo.uiview.base.UILayoutActivity;
 
@@ -30,6 +31,10 @@ public class MainActivity extends UILayoutActivity {
             startIView(new MainUIView().setEnableClipMode(UIBaseView.ClipMode.CLIP_START));
         } else {
             startIView(new LauncherUIView().setEnableClipMode(UIBaseView.ClipMode.CLIP_START));
+        }
+
+        if (BuildConfig.SHOW_DEBUG) {
+            RCrashHandler.checkCrash(mLayout);
         }
     }
 }

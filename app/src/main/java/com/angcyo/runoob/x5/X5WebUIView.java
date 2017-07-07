@@ -155,6 +155,8 @@ public class X5WebUIView extends UIContentView {
                 X5WebUIView.this.onProgressChanged(webView, progress);
             }
         });
+        mWebView.getSettings().setDisplayZoomControls(false);
+        mWebView.getSettings().setSupportZoom(true);
     }
 
     protected void onLoadUrl() {
