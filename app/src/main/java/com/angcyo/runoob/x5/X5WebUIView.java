@@ -5,11 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.RelativeLayout;
 
 import com.angcyo.library.utils.L;
 import com.angcyo.runoob.R;
 import com.angcyo.uiview.base.UIContentView;
+import com.angcyo.uiview.container.ContentLayout;
 import com.angcyo.uiview.dialog.UIBottomItemDialog;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.rsen.RefreshLayout;
@@ -77,7 +77,7 @@ public class X5WebUIView extends UIContentView {
     }
 
     @Override
-    protected void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
+    protected void inflateContentLayout(ContentLayout baseContentLayout, LayoutInflater inflater) {
         //inflate(R.layout.view_x5_web);
         mEmptyView = new EmptyView(mActivity);
         int offset = mActivity.getResources().getDimensionPixelOffset(R.dimen.base_xhdpi);

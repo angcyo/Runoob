@@ -1,12 +1,12 @@
 package com.angcyo.runoob.iview
 
 import android.support.v7.widget.GridLayoutManager
-import android.widget.RelativeLayout
 import com.angcyo.runoob.R
 import com.angcyo.runoob.base.BaseRecyclerUIView
 import com.angcyo.runoob.bean.HomeBean
 import com.angcyo.runoob.bean.HomeSubBean
 import com.angcyo.runoob.x5.X5WebUIView
+import com.angcyo.uiview.container.ContentLayout
 import com.angcyo.uiview.net.RException
 import com.angcyo.uiview.net.RFunc
 import com.angcyo.uiview.net.RSubscriber
@@ -53,12 +53,12 @@ class HomeUIView : BaseRecyclerUIView<HomeUIView.HomeGroup>() {
         super.initOnShowContentLayout()
     }
 
-    override fun initRefreshLayout(refreshLayout: RefreshLayout?, baseContentLayout: RelativeLayout?) {
+    override fun initRefreshLayout(refreshLayout: RefreshLayout?, baseContentLayout: ContentLayout?) {
         super.initRefreshLayout(refreshLayout, baseContentLayout)
         refreshLayout?.setNotifyListener(false)
     }
 
-    override fun initRecyclerView(recyclerView: RRecyclerView?, baseContentLayout: RelativeLayout?) {
+    override fun initRecyclerView(recyclerView: RRecyclerView?, baseContentLayout: ContentLayout?) {
         super.initRecyclerView(recyclerView, baseContentLayout)
         recyclerView?.layoutManager = object : GridLayoutManager(mActivity, 2) {
 

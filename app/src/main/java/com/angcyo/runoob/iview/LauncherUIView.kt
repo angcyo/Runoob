@@ -9,6 +9,7 @@ import android.view.animation.DecelerateInterpolator
 import android.widget.RelativeLayout
 import com.angcyo.runoob.R
 import com.angcyo.runoob.base.BaseContentUIView
+import com.angcyo.uiview.container.ContentLayout
 import com.angcyo.uiview.model.TitleBarPattern
 import com.angcyo.uiview.resources.AnimUtil
 import com.angcyo.uiview.resources.ResUtil
@@ -27,7 +28,7 @@ class LauncherUIView : BaseContentUIView() {
         return null
     }
 
-    override fun inflateContentLayout(baseContentLayout: RelativeLayout?, inflater: LayoutInflater?) {
+    override fun inflateContentLayout(baseContentLayout: ContentLayout?, inflater: LayoutInflater?) {
         inflate(R.layout.view_launcher_layout)
     }
 
