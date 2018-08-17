@@ -1,4 +1,8 @@
 include ':app'
+include ':RLibrary:rcode'
+include ':RLibrary:zxingzbar'
+
 include ':RLibrary:uiview'
 include ':RLibrary:library'
-include ':RLibrary:rcode'
+include ':RLibrary:github'
+include ':RLibrary:ucrop'

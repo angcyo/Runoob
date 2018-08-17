@@ -19,7 +19,6 @@ android {
         }
     }
     compileSdkVersion Integer.parseInt(rootProject.C_SDK)
-    buildToolsVersion rootProject.B_TOOLS
     defaultConfig {
         applicationId "com.angcyo.runoob"
         minSdkVersion Integer.parseInt(rootProject.M_SDK)
@@ -40,19 +39,23 @@ android {
 //            ]
 //        }
 //    }
+    flavorDimensions "type"
     productFlavors {
         //develop
         _dev {
+            dimension "type"
             minSdkVersion 21
             buildConfigField "boolean", "SHOW_DEBUG", "true"
         }
         //preview
         pre {
+            dimension "type"
             minSdkVersion Integer.parseInt(rootProject.M_SDK)
             buildConfigField "boolean", "SHOW_DEBUG", "true"
         }
         //apk
         apk {
+            dimension "type"
             minSdkVersion Integer.parseInt(rootProject.M_SDK)
             buildConfigField "boolean", "SHOW_DEBUG", "false"
         }
@@ -69,16 +72,38 @@ android {
             signingConfig signingConfigs.angcyo
         }
     }
-    getApplicationVariants().all { variant ->
-        variant.outputs.each { output ->
-            def appName = "Runoob-${variant.buildType.name}-${variant.versionName}"
+//    getApplicationVariants().all { variant ->
+//        variant.outputs.each { output ->
+//            def appName = "Runoob-${variant.buildType.name}-${variant.versionName}"
+//            def time = ""
+//            if (variant.buildType.name.equalsIgnoreCase("release")) {
+//                time = "_${new Date().format("HH-mm_yyyy-MM-dd")}"
+//            }
+//            output.outputFile = new File(output.outputFile.parent, "${appName}${time}.apk")
+//        }
+//    }
+    applicationVariants.all { variant ->
+        //这个修改输出的APK路径
+        if (variant.buildType.name != "debug") {//防止AS无法安装debug包(apk)
+            variant.getPackageApplication().outputDirectory = new File(project.rootDir.absolutePath + "/apk")
+        }
+        variant.getPackageApplication().outputScope.apkDatas.forEach { apkData ->
             def time = ""
             if (variant.buildType.name.equalsIgnoreCase("release")) {
                 time = "_${new Date().format("HH-mm_yyyy-MM-dd")}"
             }
-            output.outputFile = new File(output.outputFile.parent, "${appName}${time}.apk")
+
+            //这个修改输出APK的文件名
+            apkData.outputFileName = "Runoob-" +
+                    variant.versionName + "_" +
+                    time + "_" +
+                    variant.flavorName + "_" +
+                    variant.buildType.name + "_" +
+                    variant.signingConfig.name +
+                    ".apk"
         }
     }
+
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
         exclude 'META-INF/NOTICE'
@@ -97,11 +122,12 @@ android {
         jumboMode true
         javaMaxHeapSize "4g"
     }
+    buildToolsVersion '27.0.3'
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    compile 'org.jsoup:jsoup:1.10.3' //2017-06-24
-    compile project(':RLibrary:uiview')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation 'org.jsoup:jsoup:1.10.3' //2017-06-24
+    implementation project(':RLibrary:uiview')
 }

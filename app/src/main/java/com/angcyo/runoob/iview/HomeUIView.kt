@@ -38,7 +38,7 @@ class HomeUIView : BaseRecyclerUIView<HomeUIView.HomeGroup>() {
     }
 
 
-    override fun createAdapter(): RExBaseAdapter<String, HomeGroup, String>? {
+    override fun createAdapter(): RExBaseAdapter<String, HomeGroup, String> {
         return object : RGroupAdapter<String, HomeGroup, String>(mActivity) {
             override fun getItemLayoutId(viewType: Int): Int {
                 return when (viewType) {

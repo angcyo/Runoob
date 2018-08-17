@@ -28,7 +28,7 @@ class LauncherUIView : BaseContentUIView() {
         return null
     }
 
-    override fun inflateContentLayout(baseContentLayout: ContentLayout?, inflater: LayoutInflater?) {
+    override fun inflateContentLayout(baseContentLayout: ContentLayout, inflater: LayoutInflater) {
         inflate(R.layout.view_launcher_layout)
     }
 

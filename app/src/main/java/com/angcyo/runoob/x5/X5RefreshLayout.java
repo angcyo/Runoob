@@ -32,7 +32,7 @@ public class X5RefreshLayout extends EmptyRefreshLayout {
     }
 
     @Override
-    protected boolean innerCanChildScrollVertically(View view, int direction, float rawX, float rawY) {
+    protected boolean innerCanChildScrollVertically(View view, int direction, float rawX, float rawY, float x, float y) {
         if (view instanceof X5WebView) {
             if (direction > 0) {
                 //手指向上滑动
@@ -41,7 +41,7 @@ public class X5RefreshLayout extends EmptyRefreshLayout {
                 return ((X5WebView) view).canTopScroll();
             }
         } else {
-            return super.innerCanChildScrollVertically(view, direction, rawX, rawY);
+            return super.innerCanChildScrollVertically(view, direction, rawX, rawY, x, y);
         }
     }
 

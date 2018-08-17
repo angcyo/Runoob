@@ -39,6 +39,7 @@ import java.util.Map;
 //import com.tencent.smtt.sdk.WebViewDatabase;
 
 public class X5WebView extends WebView implements IWebView {
+
     public static final int FILE_CHOOSER = 0;
     private static boolean isSmallWebViewDisplayed = false;
     RelativeLayout.LayoutParams layoutParams;
@@ -149,7 +150,7 @@ public class X5WebView extends WebView implements IWebView {
 
         @Override
         public boolean onShowFileChooser(WebView arg0,
-                                         ValueCallback<Uri[]> arg1, FileChooserParams arg2) {
+            ValueCallback<Uri[]> arg1, FileChooserParams arg2) {
             // TODO Auto-generated method stub
             //Log.e("app", "onShowFileChooser");
             return super.onShowFileChooser(arg0, arg1, arg2);
@@ -292,7 +293,7 @@ public class X5WebView extends WebView implements IWebView {
             @Override
             public void onDownloadStart(String s, String s1, String s2, String s3, long l) {
                 //L.e("call: onDownloadStart([s, s1, s2, s3, l])-> " + s);
-                if (RUtils.downLoadFile(getContext(), s) != -1) {
+                if (RUtils.downLoadFile(getContext(), s, RUtils.getFileNameFromUrl(s)) != -1) {
                     goBack();
                 }
             }
@@ -357,7 +358,7 @@ public class X5WebView extends WebView implements IWebView {
         webSetting.setAppCachePath(getContext().getDir("appcache", 0).getPath());
         webSetting.setDatabasePath(getContext().getDir("databases", 0).getPath());
         webSetting.setGeolocationDatabasePath(getContext().getDir("geolocation", 0)
-                .getPath());
+            .getPath());
 
         webSetting.setDefaultTextEncodingName("utf-8");
 
@@ -375,7 +376,7 @@ public class X5WebView extends WebView implements IWebView {
 
         if (jsBridgeBundle != null) {
             String tag = SecurityJsBridgeBundle.BLOCK + jsBridgeBundle.getJsBlockName() + "-"
-                    + SecurityJsBridgeBundle.METHOD + jsBridgeBundle.getMethodName();
+                + SecurityJsBridgeBundle.METHOD + jsBridgeBundle.getMethodName();
             this.mJsBridges.put(tag, jsBridgeBundle);
         }
     }
@@ -384,7 +385,7 @@ public class X5WebView extends WebView implements IWebView {
      * 当webchromeClient收到 web的prompt请求后进行拦截判断，用于调起本地android方法
      *
      * @param methodName 方法名称
-     * @param blockName  区块名称
+     * @param blockName 区块名称
      * @return true ：调用成功 ； false ：调用失败
      */
     private boolean onJsPrompt(String methodName, String blockName) {
@@ -474,7 +475,7 @@ public class X5WebView extends WebView implements IWebView {
      * 当WebView滚动了多少距离时, 回调
      */
     protected boolean tbs_overScrollBy(int deltaX, int deltaY, int scrollX, int scrollY, int scrollRangeX,
-                                       int scrollRangeY, int maxOverScrollX, int maxOverScrollY, boolean isTouchEvent, View view) {
+        int scrollRangeY, int maxOverScrollX, int maxOverScrollY, boolean isTouchEvent, View view) {
 //        if (getContext() instanceof RefreshActivity) {
 //            if (this.isClampedY) {
 //                if ((refreshRela.getTop() + (-deltaY)) / 2 < 255) {
@@ -497,7 +498,7 @@ public class X5WebView extends WebView implements IWebView {
             }
         }
         return super_overScrollBy(deltaX, deltaY, scrollX, scrollY, scrollRangeX, scrollRangeY, maxOverScrollX,
-                maxOverScrollY, isTouchEvent);
+            maxOverScrollY, isTouchEvent);
     }
 
     protected boolean tbs_onTouchEvent(MotionEvent event, View view) {
@@ -569,6 +570,7 @@ public class X5WebView extends WebView implements IWebView {
     }
 
     public interface OnWebViewListener {
+
         void onScroll(int left, int top, int dx, int dy);
 
         void onOverScroll(int scrollY);

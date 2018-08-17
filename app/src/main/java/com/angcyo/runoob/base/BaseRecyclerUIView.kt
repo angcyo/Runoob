@@ -9,7 +9,6 @@ import com.angcyo.uiview.widget.viewpager.UIViewPager
  * Created by angcyo on 2017-06-24.
  */
 abstract class BaseRecyclerUIView<T> : UIRecyclerUIView<String, T, String>() {
-    var page = 1
 
     open fun isLoadInViewPager() = true
 
@@ -24,7 +23,7 @@ abstract class BaseRecyclerUIView<T> : UIRecyclerUIView<String, T, String>() {
         }
     }
 
-    override fun onShowInPager(viewPager: UIViewPager?) {
+    override fun onShowInPager(viewPager: UIViewPager) {
         super.onShowInPager(viewPager)
         if (isLoadInViewPager() && showInPagerCount <= 1) {
             onBaseLoadData()
@@ -44,7 +43,8 @@ abstract class BaseRecyclerUIView<T> : UIRecyclerUIView<String, T, String>() {
     }
 
     /**重载此方法, 加载网络数据*/
-    open fun onUILoadData(page: Int) {
+    override fun onUILoadData(page: Int, extend: String?) {
+        //super.onUILoadData(page, extend)
         showLoadView()
     }
 
